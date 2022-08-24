@@ -1,5 +1,7 @@
 package com.boletos.Gringotes.model;
 
+import com.boletos.Gringotes.enums.Status;
+import com.boletos.Gringotes.enums.Tipo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,9 +35,9 @@ public class ContasAPagarModel {
     private LocalDateTime dataDePagamento;
 
     @Column(length = 50, nullable = false)
-    private String status;
+    private Status status;
 
     @Column(length = 50, nullable = false)
-    private String tipo;
+    private Tipo tipo;
 
 }
