@@ -31,7 +31,7 @@ public class ContasAPagarModel {
     @Column(length = 50, nullable = false)
     private LocalDate dataDeVencimento;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 50, nullable = true)
     private LocalDateTime dataDePagamento;
 
     @Column(length = 50, nullable = false)

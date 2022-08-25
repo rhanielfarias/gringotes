@@ -28,12 +28,10 @@ public class ContasAPagarService {
         LocalDate dataAtual = LocalDate.now();
         if (data.isBefore(dataAtual)) {
             return Status.VENCIDA;
-        } else if (data.isAfter(dataAtual)) {
+        } else {
             return Status.AGUARDANDO;
         }
-        return null;
     }
-
     public List<ContasAPagarModel> buscarTodos() {
         return contasAPagarRepository.findAll();
     }
@@ -43,21 +41,20 @@ public class ContasAPagarService {
     }
 
     public ContasAPagarModel cadastrar(ContasAPagarModel contasAPagarModel) {
-        contasAPagarModel.getCodigo();
-        contasAPagarModel.getNome();
-        contasAPagarModel.getValor();
-        contasAPagarModel.getTipo();
-        contasAPagarModel.getDataDeVencimento();
         contasAPagarModel.setStatus(validarData(contasAPagarModel.getDataDeVencimento()));
         return contasAPagarRepository.save(contasAPagarModel);
     }
 
-    public ContasAPagarModel alterar(ContasAPagarModel contas){
-    contas.getCodigo();
-    contas.getNome();
-    contas.getValor();
-            contas.getTipo();
-        return contasAPagarRepository.save(contas);
+    public ContasAPagarModel alterar(ContasAPagarModel contas, Long codigo){
+        Optional<ContasAPagarModel> optionalContasAPagarModel = contasAPagarRepository.findById(codigo);
+if (optionalContasAPagarModel.isEmpty()){
+    throw new RuntimeException("Não foi encontrado no sistema essa conta. Tente outra, por favor");
+}
+        ContasAPagarModel contaCarregada = optionalContasAPagarModel.get();
+        Status statusInfo = contas.getStatus();
+        contaCarregada.setStatus(statusInfo);
+
+        return contasAPagarRepository.save(contaCarregada);
     }
 
     public void deletar(Long codigo) {
