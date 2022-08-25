@@ -52,7 +52,11 @@ public class ContasAPagarService {
         return contasAPagarRepository.save(contasAPagarModel);
     }
 
-    public ContasAPagarModel alterar(ContasAPagarModel contas) {
+    public ContasAPagarModel alterar(ContasAPagarModel contas){
+    contas.getCodigo();
+    contas.getNome();
+    contas.getValor();
+            contas.getTipo();
         return contasAPagarRepository.save(contas);
     }
 
