@@ -1,5 +1,7 @@
 package com.boletos.Gringotes.controller;
 
+import com.boletos.Gringotes.enums.Status;
+import com.boletos.Gringotes.enums.Tipo;
 import com.boletos.Gringotes.model.ContasAPagarModel;
 import com.boletos.Gringotes.service.ContasAPagarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,16 @@ import java.util.Optional;
 public class ContasAPagarController {
     @Autowired
     private ContasAPagarService contasAPagarService;
+
+    @GetMapping(path = "/contas/tipo/{tipo}")
+    public List<ContasAPagarModel> findByTipo(@PathVariable Tipo tipo) {
+        return contasAPagarService.findByTipo(tipo);
+    }
+
+    @GetMapping(path = "/contas/status/{status}")
+    public List<ContasAPagarModel> findByStatus(@PathVariable Status status) {
+        return contasAPagarService.findByStatus(status);
+    }
 
     @GetMapping(path = "/contas")
     public ResponseEntity<List<ContasAPagarModel>> buscarPorContas() {
@@ -33,7 +45,7 @@ public class ContasAPagarController {
     }
 
     @PutMapping(path = "/contas/{codigo}")
-    public ResponseEntity<ContasAPagarModel> alterarContas(@RequestBody ContasAPagarModel contas){
+    public ResponseEntity<ContasAPagarModel> alterarContas(@RequestBody ContasAPagarModel contas) {
         return ResponseEntity.ok(contasAPagarService.alterar(contas));
     }
 
