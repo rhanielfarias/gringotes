@@ -32,6 +32,7 @@ public class ContasAPagarService {
             return Status.AGUARDANDO;
         }
     }
+
     public List<ContasAPagarModel> buscarTodos() {
         return contasAPagarRepository.findAll();
     }
@@ -45,11 +46,11 @@ public class ContasAPagarService {
         return contasAPagarRepository.save(contasAPagarModel);
     }
 
-    public ContasAPagarModel alterar(ContasAPagarModel contas, Long codigo){
+    public ContasAPagarModel alterar(ContasAPagarModel contas, Long codigo) {
         Optional<ContasAPagarModel> optionalContasAPagarModel = contasAPagarRepository.findById(codigo);
-if (optionalContasAPagarModel.isEmpty()){
-    throw new RuntimeException("Não foi encontrado no sistema essa conta. Tente outra, por favor");
-}
+        if (optionalContasAPagarModel.isEmpty()) {
+            throw new RuntimeException("Não foi encontrado no sistema essa conta. Tente outra, por favor");
+        }
         ContasAPagarModel contaCarregada = optionalContasAPagarModel.get();
         Status statusInfo = contas.getStatus();
         contaCarregada.setStatus(statusInfo);
