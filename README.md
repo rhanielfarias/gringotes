@@ -1,0 +1,4 @@
+#Desafio03 - Desenvolvendo uma API de gerenciamento de contas(boletos).
+- Na aplicação Gringotes é possível gerenciar e deixar a vida mais fácil. Pois com esta API é possível registrar contas do tipo luz, água, comida, laser, outros, informando o nome, valor, tipo e data de vencimento. Além disso, caso a data seja anterior da atual, o status fica como vencida, já datas posteriores recebem o status aguardando, porém o usuário pode alterar para paga se assim desejar.
+- Funções principais: cadastrar, atualizar, deletar por ID e buscar. Também é possível visualizar através dos filtros TIPO e Status.
+OBS: o nome dessa API foi escolhida para omenagear o banco dos bruxos do universo de Harry Potter.
