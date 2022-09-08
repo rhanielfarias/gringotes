@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -21,8 +23,8 @@ public class ContasAPagarModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long codigo;
-
-    @Column(length = 50, nullable = false)
+@NotBlank(message = "Nome obrigatório")
+@Length(min = 5, max = 20, message = "O nome precisa ter no mínimo 5 caracter e no máximo 20")
     private String nome;
 
     @Column(length = 50, nullable = false)

@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,7 +43,6 @@ public class ContasAPagarService {
 
     public ContasAPagarModel cadastrar(ContasAPagarModel contasAPagarModel) {
         contasAPagarModel.setStatus(validarData(contasAPagarModel.getDataDeVencimento()));
-        contasAPagarModel.setDataDePagamento(null);
         return contasAPagarRepository.save(contasAPagarModel);
     }
 
@@ -57,7 +54,7 @@ public class ContasAPagarService {
         ContasAPagarModel contaCarregada = optionalContasAPagarModel.get();
         Status statusInfo = contas.getStatus();
         contaCarregada.setStatus(statusInfo);
-        contaCarregada.setDataDePagamento(LocalDateTime.now(ZoneId.of("UTC-03:00")));
+
         return contasAPagarRepository.save(contaCarregada);
     }
 

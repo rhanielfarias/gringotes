@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +40,8 @@ public class ContasAPagarController {
     }
 
     @PostMapping(path = "/contas")
-    public ResponseEntity<ContasAPagarModel> cadastrarContas(@RequestBody ContasAPagarModel contasAPagarModel) {
+    public ResponseEntity<ContasAPagarModel> cadastrarContas( @RequestBody @Valid  ContasAPagarModel contasAPagarModel) {
+
         ContasAPagarModel contas = contasAPagarService.cadastrar(contasAPagarModel);
         return new ResponseEntity<>(contas, HttpStatus.CREATED);
     }
