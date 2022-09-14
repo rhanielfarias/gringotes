@@ -2,6 +2,7 @@ package com.boletos.Gringotes.service;
 
 
 import com.boletos.Gringotes.model.UsuarioModel;
+import com.boletos.Gringotes.model.dto.UsuarioDto;
 import com.boletos.Gringotes.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +15,9 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public List<UsuarioModel> buscarPorTodos() {
-        return usuarioRepository.findAll();
+    public List<UsuarioDto> buscarPorTodos() {
+        List<UsuarioModel> buscarPorTodos = usuarioRepository.findAll();
+        return UsuarioDto.converter(buscarPorTodos);
     }
 
     public Optional<UsuarioModel> buscarId(Integer codigo) {
@@ -23,6 +25,12 @@ public class UsuarioService {
     }
 
     public UsuarioModel cadastrar(UsuarioModel usuarioModel) {
+        usuarioModel.getCodigo();
+        usuarioModel.getNomeUsuario();
+        usuarioModel.getDataNascimento();
+        usuarioModel.getEmail();
+        usuarioModel.getCpf();
+
         return usuarioRepository.save(usuarioModel);
     }
 

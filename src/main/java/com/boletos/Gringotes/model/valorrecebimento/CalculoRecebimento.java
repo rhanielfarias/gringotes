@@ -5,6 +5,6 @@ import com.boletos.Gringotes.model.ContasReceberModel;
 import java.math.BigDecimal;
 
 public interface CalculoRecebimento {
-    public BigDecimal calculoPagamento(ContasReceberModel contasReceberModel);
+    public BigDecimal calculoPagamento(BigDecimal valorRecebido);
 
 }

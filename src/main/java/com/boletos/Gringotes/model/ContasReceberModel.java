@@ -1,6 +1,7 @@
 package com.boletos.Gringotes.model;
 
 import com.boletos.Gringotes.enums.RecebimentoAlugueis;
+import com.boletos.Gringotes.enums.Status;
 import com.boletos.Gringotes.enums.TipoRecebimento;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,8 +25,7 @@ public class ContasReceberModel {
     private Integer codigo;
 
     @Column(length = 50, nullable = false)
-    private String Status;
-
+    private Status status;
     @Column(length = 50, nullable = false)
     private String recebimento;
 
@@ -34,8 +34,8 @@ public class ContasReceberModel {
 
     @Column(length = 50, nullable = false)
     private TipoRecebimento tipoRecebimento;
-    @Column(length = 50, nullable = false)
 
+    @Column(length = 50, nullable = false)
     private RecebimentoAlugueis recebimentoAlugueis;
 
     @Column(length = 50, nullable = false)
@@ -43,7 +43,8 @@ public class ContasReceberModel {
 
     @Column(length = 50, nullable = false)
     private LocalDate dataDeRecebimento;
-
+    @Column(length = 50, nullable = false)
+private  BigDecimal valorTotal;
     @ManyToOne
     @JoinColumn(name = "usuario_id", referencedColumnName = "codigo")
     private UsuarioModel usuario;

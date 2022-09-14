@@ -6,8 +6,12 @@ import java.math.BigDecimal;
 
 public class PagamentoAdiantado implements CalculoRecebimento {
     @Override
-    public BigDecimal calculoPagamento(ContasReceberModel contasReceberModel) {
-        return contasReceberModel.getValorRecebido().subtract(contasReceberModel.getValorRecebido()).multiply(new BigDecimal("0.05"));
+    public BigDecimal calculoPagamento(BigDecimal valorRecebido) {
+        BigDecimal aplicarDesconto = valorRecebido.multiply(new BigDecimal(0.05));
+        BigDecimal valor = valorRecebido.subtract(aplicarDesconto);
+        return valor;
+
+
     }
 
 }

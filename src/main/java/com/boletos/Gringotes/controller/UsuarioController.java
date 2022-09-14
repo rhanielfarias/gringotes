@@ -2,12 +2,14 @@ package com.boletos.Gringotes.controller;
 
 
 import com.boletos.Gringotes.model.UsuarioModel;
+import com.boletos.Gringotes.model.dto.UsuarioDto;
 import com.boletos.Gringotes.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +19,7 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @GetMapping(path = "/usuario")
-    public ResponseEntity<List<UsuarioModel>> buscarPorUsuario() {
+    public ResponseEntity<List<UsuarioDto>> buscarPorUsuario() {
         return ResponseEntity.ok(usuarioService.buscarPorTodos());
     }
 
@@ -27,7 +29,7 @@ public class UsuarioController {
     }
 
     @PostMapping(path = "/usuario")
-    public ResponseEntity<UsuarioModel> cadastrarUsuario(@RequestBody UsuarioModel usuarioModel) {
+    public ResponseEntity<UsuarioModel> cadastrarUsuario(@RequestBody @Valid UsuarioModel usuarioModel) {
         UsuarioModel usuario = usuarioService.cadastrar(usuarioModel);
         return new ResponseEntity<>(usuario, HttpStatus.CREATED);
     }

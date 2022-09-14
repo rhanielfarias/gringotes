@@ -6,8 +6,8 @@ import java.math.BigDecimal;
 
 public class PagamentoEmDia implements CalculoRecebimento {
     @Override
-    public BigDecimal calculoPagamento(ContasReceberModel contasReceberModel) {
-        return contasReceberModel.getValorRecebido();
+    public BigDecimal calculoPagamento(BigDecimal valorRecebido) {
+        return valorRecebido;
 
     }
 

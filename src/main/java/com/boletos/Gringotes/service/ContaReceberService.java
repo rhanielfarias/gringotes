@@ -1,11 +1,14 @@
 package com.boletos.Gringotes.service;
 
 import com.boletos.Gringotes.enums.RecebimentoAlugueis;
+import com.boletos.Gringotes.enums.TipoRecebimento;
 import com.boletos.Gringotes.model.ContasReceberModel;
+import com.boletos.Gringotes.model.valorrecebimento.EfetuarRecebimento;
 import com.boletos.Gringotes.repository.ContasReceberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -23,25 +26,30 @@ public class ContaReceberService {
         return contasReceberRepository.findById(codigo);
     }
 
-    public ContasReceberModel cadastrar(ContasReceberModel contasReceberModel) {
-        boolean recebendoDataAtual = LocalDate.now().isBefore(contasReceberModel.getDataDeVencimento()) || LocalDate.now().equals(contasReceberModel.getDataDeVencimento());
-        if (Boolean.FALSE.equals(recebendoDataAtual)) {
-            contasReceberModel.setRecebimentoAlugueis(RecebimentoAlugueis.EM_ATRASO);
-        } else if (Boolean.TRUE.equals(recebendoDataAtual)) {
-            contasReceberModel.setRecebimentoAlugueis(RecebimentoAlugueis.EM_DIA);
-        } else {
-            contasReceberModel.setRecebimentoAlugueis(RecebimentoAlugueis.ADIANTADO);
-
+    public ContasReceberModel cadastrar(ContasReceberModel contasReceberModel, EfetuarRecebimento efetuarRecebimento) {
+        if (contasReceberModel.getTipoRecebimento().equals(TipoRecebimento.ALUGUEIS)) {
+            boolean vencimentoDeHoje = LocalDate.now().isEqual(contasReceberModel.getDataDeVencimento()) || LocalDate.now().equals(contasReceberModel.getDataDeVencimento());
+boolean atrasado = LocalDate.now().isAfter(contasReceberModel.getDataDeVencimento());
+            if (atrasado) {
+                contasReceberModel.setRecebimentoAlugueis(RecebimentoAlugueis.EM_ATRASO);
+            } else if (vencimentoDeHoje) {
+                contasReceberModel.setRecebimentoAlugueis(RecebimentoAlugueis.EM_DIA);
+            } else {
+                contasReceberModel.setRecebimentoAlugueis(RecebimentoAlugueis.ADIANTADO);
+            }
+            BigDecimal valor = efetuarRecebimento.tipoRecebimento(contasReceberModel).calculoPagamento(contasReceberModel.getValorRecebido());
+            contasReceberModel.setValorTotal(valor);
         }
-        return contasReceberRepository.save(contasReceberModel);
-    }
+            return contasReceberRepository.save(contasReceberModel);
+        }
 
-    public ContasReceberModel alterar(ContasReceberModel contas, Integer codigo) {
-        return contasReceberRepository.save(contas);
-    }
+        public ContasReceberModel alterar (ContasReceberModel contas, Integer codigo){
 
-    public void deletar(Integer codigo) {
-        contasReceberRepository.deleteById(codigo);
-    }
+            return contasReceberRepository.save(contas);
+        }
 
-}
+        public void deletar (Integer codigo){
+            contasReceberRepository.deleteById(codigo);
+        }
+
+    }

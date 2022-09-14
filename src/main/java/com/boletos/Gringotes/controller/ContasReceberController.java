@@ -1,6 +1,7 @@
 package com.boletos.Gringotes.controller;
 
 import com.boletos.Gringotes.model.ContasReceberModel;
+import com.boletos.Gringotes.model.valorrecebimento.EfetuarRecebimento;
 import com.boletos.Gringotes.service.ContaReceberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,8 +27,8 @@ public class ContasReceberController {
     }
 
     @PostMapping(path = "/contasreceber")
-    public ResponseEntity<ContasReceberModel> cadastrarContas(@RequestBody ContasReceberModel contasReceberModel) {
-        ContasReceberModel contas = contaReceberService.cadastrar(contasReceberModel);
+    public ResponseEntity<ContasReceberModel> cadastrarContas(@RequestBody ContasReceberModel contasReceberModel, EfetuarRecebimento efetuarRecebimento) {
+        ContasReceberModel contas = contaReceberService.cadastrar(contasReceberModel, efetuarRecebimento);
         return new ResponseEntity<>(contas, HttpStatus.CREATED);
     }
 
