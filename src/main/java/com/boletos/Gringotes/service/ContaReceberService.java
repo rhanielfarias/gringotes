@@ -18,6 +18,7 @@ public class ContaReceberService {
     @Autowired
     private ContasReceberRepository contasReceberRepository;
 
+
     public List<ContasReceberModel> buscarTodos() {
         return contasReceberRepository.findAll();
     }
@@ -29,7 +30,7 @@ public class ContaReceberService {
     public ContasReceberModel cadastrar(ContasReceberModel contasReceberModel, EfetuarRecebimento efetuarRecebimento) {
         if (contasReceberModel.getTipoRecebimento().equals(TipoRecebimento.ALUGUEIS)) {
             boolean vencimentoDeHoje = LocalDate.now().isEqual(contasReceberModel.getDataDeVencimento()) || LocalDate.now().equals(contasReceberModel.getDataDeVencimento());
-boolean atrasado = LocalDate.now().isAfter(contasReceberModel.getDataDeVencimento());
+            boolean atrasado = LocalDate.now().isAfter(contasReceberModel.getDataDeVencimento());
             if (atrasado) {
                 contasReceberModel.setRecebimentoAlugueis(RecebimentoAlugueis.EM_ATRASO);
             } else if (vencimentoDeHoje) {
@@ -40,16 +41,21 @@ boolean atrasado = LocalDate.now().isAfter(contasReceberModel.getDataDeVenciment
             BigDecimal valor = efetuarRecebimento.tipoRecebimento(contasReceberModel).calculoPagamento(contasReceberModel.getValorRecebido());
             contasReceberModel.setValorTotal(valor);
         }
-            return contasReceberRepository.save(contasReceberModel);
-        }
-
-        public ContasReceberModel alterar (ContasReceberModel contas, Integer codigo){
-
-            return contasReceberRepository.save(contas);
-        }
-
-        public void deletar (Integer codigo){
-            contasReceberRepository.deleteById(codigo);
-        }
-
+        return contasReceberRepository.save(contasReceberModel);
     }
+
+    public ContasReceberModel alterar(ContasReceberModel contas, Integer codigo) {
+        Optional<ContasReceberModel> optionalContasReceberModel = contasReceberRepository.findById(codigo);
+        if (optionalContasReceberModel.isEmpty()) {
+            throw new RuntimeException("Não foi encontrado no sistema essa conta. Tente outra, por favor");
+        }
+        ContasReceberModel contaCarregada = optionalContasReceberModel.get();
+
+        return contasReceberRepository.save(contaCarregada);
+    }
+
+    public void deletar(Integer codigo) {
+        contasReceberRepository.deleteById(codigo);
+    }
+
+}

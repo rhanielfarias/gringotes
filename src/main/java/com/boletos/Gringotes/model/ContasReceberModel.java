@@ -26,6 +26,7 @@ public class ContasReceberModel {
 
     @Column(length = 50, nullable = false)
     private Status status;
+
     @Column(length = 50, nullable = false)
     private String recebimento;
 
@@ -43,8 +44,10 @@ public class ContasReceberModel {
 
     @Column(length = 50, nullable = false)
     private LocalDate dataDeRecebimento;
+
     @Column(length = 50, nullable = false)
-private  BigDecimal valorTotal;
+    private BigDecimal valorTotal;
+
     @ManyToOne
     @JoinColumn(name = "usuario_id", referencedColumnName = "codigo")
     private UsuarioModel usuario;

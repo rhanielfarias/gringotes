@@ -1,5 +1,6 @@
 package com.boletos.Gringotes.controller;
 
+import com.boletos.Gringotes.enums.TipoRecebimento;
 import com.boletos.Gringotes.model.ContasReceberModel;
 import com.boletos.Gringotes.model.valorrecebimento.EfetuarRecebimento;
 import com.boletos.Gringotes.service.ContaReceberService;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
