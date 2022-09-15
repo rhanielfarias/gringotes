@@ -18,6 +18,21 @@ public class ContasReceberController {
     @Autowired
     private ContaReceberService contaReceberService;
 
+    @GetMapping(path = "/contasreceber/{status}")
+    public ResponseEntity<List<ContasReceberModel>> buscarStatus(String status) {
+        return ResponseEntity.ok(contaReceberService.buscarPorStatus(status));
+    }
+
+    @GetMapping(path = "/contasreceber/{tipoderecebimento}")
+    public ResponseEntity<List<ContasReceberModel>> buscarPorTipoDeRecebimento(TipoRecebimento tipoRecebimento) {
+        return ResponseEntity.ok(contaReceberService.buscarTipo(tipoRecebimento));
+    }
+
+    @GetMapping(path = "/contasreceber/{datavencida}")
+    public ResponseEntity<List<ContasReceberModel>> buscarPorDataVencida(LocalDate dataVencida) {
+        return ResponseEntity.ok(contaReceberService.buscarDataVencida(dataVencida));
+    }
+
     @GetMapping(path = "/contasreceber")
     public ResponseEntity<List<ContasReceberModel>> buscarPorContas() {
         return ResponseEntity.ok(contaReceberService.buscarTodos());

@@ -18,6 +18,17 @@ public class ContaReceberService {
     @Autowired
     private ContasReceberRepository contasReceberRepository;
 
+    public List<ContasReceberModel> buscarPorStatus(String status) {
+        return contasReceberRepository.findByStatus(status);
+    }
+
+    public List<ContasReceberModel> buscarTipo(TipoRecebimento tipoRecebimento) {
+        return contasReceberRepository.findByTipoRecebimento(tipoRecebimento);
+    }
+
+    public List<ContasReceberModel> buscarDataVencida(LocalDate dataVencida) {
+        return contasReceberRepository.findByDataDeVencimento(dataVencida);
+    }
 
     public List<ContasReceberModel> buscarTodos() {
         return contasReceberRepository.findAll();
