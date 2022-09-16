@@ -14,7 +14,6 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "contasreceber")
@@ -36,7 +35,7 @@ public class ContasReceberModel {
     @Column(length = 50, nullable = false)
     private TipoRecebimento tipoRecebimento;
 
-    @Column(length = 50, nullable = false)
+    @Column
     private RecebimentoAlugueis recebimentoAlugueis;
 
     @Column(length = 50, nullable = false)
@@ -45,11 +44,23 @@ public class ContasReceberModel {
     @Column(length = 50, nullable = false)
     private LocalDate dataDeRecebimento;
 
-    @Column(length = 50, nullable = false)
+    @Column
     private BigDecimal valorTotal;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id", referencedColumnName = "codigo")
     private UsuarioModel usuario;
 
+    public ContasReceberModel(Integer codigo, Status status, String recebimento, BigDecimal valorRecebido, TipoRecebimento tipoRecebimento, RecebimentoAlugueis recebimentoAlugueis, LocalDate dataDeVencimento, LocalDate dataDeRecebimento, BigDecimal valorTotal, UsuarioModel usuario) {
+        this.codigo = codigo;
+        this.status = status;
+        this.recebimento = recebimento;
+        this.valorRecebido = valorRecebido;
+        this.tipoRecebimento = tipoRecebimento;
+        this.recebimentoAlugueis = recebimentoAlugueis;
+        this.dataDeVencimento = dataDeVencimento;
+        this.dataDeRecebimento = dataDeRecebimento;
+        this.valorTotal = valorTotal;
+        this.usuario = usuario;
+    }
 }

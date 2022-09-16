@@ -27,17 +27,17 @@ public class UsuarioModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigo;
-
-    @Column(length = 200, nullable = false)
+@NotBlank(message = "name.not.blank")
     private String nomeUsuario;
 
     @Column(length = 50, nullable = false)
     private LocalDate dataNascimento;
-    @NotBlank(message = "O e-mail precisa ser válido")
-    @Email
+
+    @NotBlank(message = "not.blank.email")
+    @Email(message = "email.not.valid")
     private String email;
 
-    @NotBlank(message = "O CPF precisa ser válido")
+    @NotBlank(message = "not.blank.cpf")
     @CPF
     private String cpf;
 
