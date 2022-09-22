@@ -12,7 +12,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -48,4 +47,12 @@ public class UsuarioModel {
     @JsonIgnore
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<ContasReceberModel> contasReceberModel;
+
+    public UsuarioModel(Integer codigo, String nomeUsuario, LocalDate dataNascimento, String email, String cpf) {
+        this.codigo = codigo;
+        this.nomeUsuario = nomeUsuario;
+        this.dataNascimento = dataNascimento;
+        this.email = email;
+        this.cpf = cpf;
+    }
 }
