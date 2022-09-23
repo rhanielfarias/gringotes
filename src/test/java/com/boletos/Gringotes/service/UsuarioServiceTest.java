@@ -3,25 +3,25 @@ package com.boletos.Gringotes.service;
 import com.boletos.Gringotes.model.UsuarioModel;
 import com.boletos.Gringotes.model.dto.UsuarioDto;
 import com.boletos.Gringotes.repository.UsuarioRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class UsuarioServiceTest {
-    @Mock
+    @InjectMocks
     UsuarioService usuarioService;
 
-    @MockBean
     UsuarioRepository usuarioRepository;
 
     private UsuarioDto usuarioDto;
@@ -36,9 +36,10 @@ class UsuarioServiceTest {
     }
 
     @Test
-    void exibindoOsUsuarios() {
-        List<UsuarioDto> todos = usuarioService.buscarPorTodos();
-        assertTrue(todos.isEmpty());
+    void exibindoOsUsuariosCasoAListaEstejaVazia() {
+        Mockito.when(usuarioRepository.findAll()).thenReturn(Collections.emptyList());
+        List<UsuarioDto> todosOsUsuarios = usuarioService.buscarPorTodos();
+        Assertions.assertTrue(todosOsUsuarios.isEmpty());
     }
 
     @Test
@@ -48,4 +49,8 @@ class UsuarioServiceTest {
         Mockito.verify(usuarioRepository, Mockito.times(1)).save(usuarioModel);
     }
 
+    @Test
+    void verificandoSeOAlterarDoUsuarioEstaFuncionando() {
+    }
+rrrm
 }
