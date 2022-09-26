@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.when;
@@ -33,7 +34,8 @@ class UsuarioServiceTest {
 
     @Test
     void verificandoSeEstaSendoEfetuadoOCadastroDoUsuarioComIdNomeDataDeNascimentoEmailECpf() {
-        when(usuarioRepository.existsById(usuarioModel.getCodigo())).thenReturn(false);
+        Optional.of()
+        when(usuarioRepository.save(usuarioModel)).thenReturn(usuarioModel);
         usuarioService.cadastrar(usuarioModel);
         //verify(usuarioRepository, times(1)).existsById(usuarioModel.getCodigo());
         verify(usuarioRepository, times(1)).save(usuarioModel);
