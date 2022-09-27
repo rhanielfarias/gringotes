@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.Mockito.*;
@@ -30,14 +31,19 @@ class UsuarioServiceTest {
     @BeforeEach
     private void inicializador() {
         usuarioModel = new UsuarioModel(1, "Rhaniel Farias", LocalDate.now(), "rhanielfarias@gmail.com", "022.850.650-60");
+
     }
 
     @Test
+    void  exibindoUsuarioPorIdCasoNaoEstejaCadastrado() {
+        when(usuarioRepository.findById(usuarioModel.getCodigo())).thenReturn(Optional.of(usuarioModel));
+        usuarioService.buscarId(usuarioModel.getCodigo());
+      verify(usuarioRepository, times(1)).findById(usuarioModel.getCodigo());
+    }
+    @Test
     void verificandoSeEstaSendoEfetuadoOCadastroDoUsuarioComIdNomeDataDeNascimentoEmailECpf() {
-        Optional.of()
         when(usuarioRepository.save(usuarioModel)).thenReturn(usuarioModel);
         usuarioService.cadastrar(usuarioModel);
-        //verify(usuarioRepository, times(1)).existsById(usuarioModel.getCodigo());
         verify(usuarioRepository, times(1)).save(usuarioModel);
     }
 }
